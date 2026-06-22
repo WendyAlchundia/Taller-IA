@@ -1,4 +1,4 @@
-const API_URL = "PEGAR_AQUI_LA_URL_DE_APPS_SCRIPT";
+const API_URL = "https://script.google.com/macros/s/AKfycbzjWZqDmVg0yBcsbzNxPHY4PxtdDZAN0oZapPlw5JSISuBrjgiPhZuNjL5yXw7GZN4I/exec";
 
 /* =========================
    ELEMENTOS DEL DOM
