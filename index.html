@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesa de Solicitudes</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-content">
+            <div class="brand-container">
+                <img
+                    src="logo.png"
+                    alt="Logo Mesa de Solicitudes"
+                    id="logoPortal"
+                    class="brand-logo"
+                >
+
+                <div class="brand-text">
+                    <h1 id="portalTitle">Mesa de Solicitudes</h1>
+                    <p id="portalSubtitle">
+                        Portal educativo de solicitudes internas
+                    </p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button
+                    type="button"
+                    id="btnActualizar"
+                    class="btn-action"
+                    hidden
+                >
+                    Actualizar
+                </button>
+
+                <button
+                    type="button"
+                    id="btnImprimir"
+                    class="btn-action"
+                    hidden
+                >
+                    Imprimir / Guardar PDF
+                </button>
+
+                <button
+                    type="button"
+                    id="btnCerrarSesion"
+                    class="btn-action"
+                    hidden
+                >
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="mainContent">
+
+        <!-- MENSAJES DEL SISTEMA -->
+        <section
+            id="messageSection"
+            class="message-section"
+            aria-live="polite"
+            aria-atomic="true"
+        >
+            <div
+                id="loadingMessage"
+                class="message message-loading"
+                hidden
+            >
+                Procesando información...
+            </div>
+
+            <div
+                id="successMessage"
+                class="message message-success"
+                hidden
+            >
+                Operación realizada correctamente.
+            </div>
+
+            <div
+                id="errorMessage"
+                class="message message-error"
+                hidden
+            >
+                Ocurrió un error durante la operación.
+            </div>
+        </section>
+
+        <!-- LOGIN -->
+        <section
+            id="loginSection"
+            class="card-section"
+            aria-labelledby="loginTitle"
+        >
+            <div class="card-container">
+
+                <header class="section-header">
+                    <h2 id="loginTitle">Ingreso al Portal</h2>
+                    <p>
+                        Inicie sesión con su correo y PIN de acceso.
+                    </p>
+                </header>
+
+                <form id="loginForm" novalidate>
+
+                    <div class="form-group">
+                        <label for="correoLogin">
+                            Correo electrónico
+                        </label>
+
+                        <input
+                            type="email"
+                            id="correoLogin"
+                            name="correoLogin"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pinLogin">
+                            PIN
+                        </label>
+
+                        <input
+                            type="password"
+                            id="pinLogin"
+                            name="pinLogin"
+                            inputmode="numeric"
+                            autocomplete="current-password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-actions">
+                        <button
+                            type="submit"
+                            id="btnLogin"
+                            class="btn-primary"
+                        >
+                            Ingresar
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </section>
+
+        <!-- ÁREA PRINCIPAL -->
+        <section
+            id="portalSection"
+            class="portal-section"
+            hidden
+        >
+
+            <!-- INFORMACIÓN DEL USUARIO -->
+            <section
+                id="userInfoSection"
+                class="card-section"
+                aria-labelledby="userInfoTitle"
+            >
+                <div class="card-container">
+
+                    <header class="section-header">
+                        <h2 id="userInfoTitle">
+                            Usuario autenticado
+                        </h2>
+                    </header>
+
+                    <div class="user-info-grid">
+
+                        <div class="info-item">
+                            <span class="info-label">ID Usuario</span>
+                            <span id="usuarioId"></span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Nombre</span>
+                            <span id="usuarioNombre"></span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Correo</span>
+                            <span id="usuarioCorreo"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- FORMULARIO DE SOLICITUD -->
+            <section
+                id="requestFormSection"
+                class="card-section"
+                aria-labelledby="requestFormTitle"
+            >
+                <div class="card-container">
+
+                    <header class="section-header">
+                        <h2 id="requestFormTitle">
+                            Registrar Solicitud
+                        </h2>
+                    </header>
+
+                    <form id="solicitudForm" novalidate>
+
+                        <div class="form-group">
+                            <label for="tipoSolicitud">
+                                Tipo de Solicitud
+                            </label>
+
+                            <select
+                                id="tipoSolicitud"
+                                name="tipoSolicitud"
+                                required
+                            >
+                                <option value="">
+                                    Seleccione una opción
+                                </option>
+                                <option value="Soporte">
+                                    Soporte
+                                </option>
+                                <option value="Acceso">
+                                    Acceso
+                                </option>
+                                <option value="Incidencia">
+                                    Incidencia
+                                </option>
+                                <option value="Consulta">
+                                    Consulta
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="titulo">
+                                Título
+                            </label>
+
+                            <input
+                                type="text"
+                                id="titulo"
+                                name="titulo"
+                                maxlength="150"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">
+                                Descripción
+                            </label>
+
+                            <textarea
+                                id="descripcion"
+                                name="descripcion"
+                                rows="5"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prioridad">
+                                Prioridad
+                            </label>
+
+                            <select
+                                id="prioridad"
+                                name="prioridad"
+                                required
+                            >
+                                <option value="">
+                                    Seleccione una opción
+                                </option>
+                                <option value="Baja">
+                                    Baja
+                                </option>
+                                <option value="Media">
+                                    Media
+                                </option>
+                                <option value="Alta">
+                                    Alta
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-actions">
+                            <button
+                                type="submit"
+                                id="btnGuardarSolicitud"
+                                class="btn-primary"
+                            >
+                                Registrar Solicitud
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </section>
+
+            <!-- CONSULTA DE SOLICITUDES -->
+            <section
+                id="requestTableSection"
+                class="card-section"
+                aria-labelledby="requestTableTitle"
+            >
+                <div class="card-container">
+
+                    <header class="section-header">
+                        <h2 id="requestTableTitle">
+                            Mis Solicitudes
+                        </h2>
+                    </header>
+
+                    <div class="table-responsive">
+
+                        <table
+                            id="tablaSolicitudes"
+                            class="request-table"
+                        >
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID Solicitud</th>
+                                    <th scope="col">Fecha Registro</th>
+                                    <th scope="col">Tipo Solicitud</th>
+                                    <th scope="col">Título</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Prioridad</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="tablaSolicitudesBody">
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
